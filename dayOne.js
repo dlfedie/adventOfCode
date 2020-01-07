@@ -14,30 +14,8 @@
 
 // What is the sum of the fuel requirements for all of the modules on your spacecraft ?
 
-// input listed at the bottom 
-
-
-function fuelCounterUpper(mass) {
-
-    // first divide by 3
-    let dividedMass = mass / 3;
-    // round down
-    let roundDown = Math.floor(dividedMass);
-    // then subtract 2
-    let fuelNeededForEachModule = roundDown - 2;
-    // console.log('fuel needed: ', fuelNeededForEachModule);
-    return fuelNeededForEachModule;
-
-}
-
-// tests go here:
-// console.log(fuelCounterUpper(12));
-// console.log(fuelCounterUpper(14));
-// console.log(fuelCounterUpper(1969));
-// console.log(fuelCounterUpper(100756));
-
-// all successful
-console.log(fuelCounterUpper(
+// input listed at the bottom and here
+let inputNumbers = [
     73365,
     84016,
     98122,
@@ -137,12 +115,48 @@ console.log(fuelCounterUpper(
     118300,
     92440,
     115184,
-    142447,
-));
+    142447];
+
+function fuelCounterUpper(mass) {
+
+    // first divide by 3
+    let dividedMass = mass / 3;
+    // round down
+    let roundDown = Math.floor(dividedMass);
+    // then subtract 2
+    let fuelNeededForEachModule = roundDown - 2;
+    // console.log('fuel needed: ', fuelNeededForEachModule);
+    return fuelNeededForEachModule;
+
+}
+
+function fuelCounterWholeShip(arrayOfModuleMasses) {
+    // try and get our input as an array
+    let inputArray = Array.from(arrayOfModuleMasses);
+    // declare a total count of fuel
+    let totalFuel = 0;
+    for (let number of inputArray) {
+        let moduleFuel = fuelCounterUpper(number);
+        totalFuel += moduleFuel;
+    }
+
+    console.log('totalFuel needed: ', totalFuel);
+    return totalFuel;
+}
+// tests go here:
+// console.log(fuelCounterUpper(12));
+// console.log(fuelCounterUpper(14));
+// console.log(fuelCounterUpper(1969));
+// console.log(fuelCounterUpper(100756));
+
+// all successful
+
+console.log(fuelCounterWholeShip(inputNumbers));
 
 
+// input:
 
-// input: 
+
 // 73365
 // 84016
 // 98122
@@ -242,5 +256,5 @@ console.log(fuelCounterUpper(
 // 118300
 // 92440
 // 115184
-// 142447
+// 142447;
 
