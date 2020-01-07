@@ -14,7 +14,7 @@
 
 // What is the sum of the fuel requirements for all of the modules on your spacecraft ?
 
-// input listed here
+// input listed here. holy bananas i learned how to do some cursor magic in vs code to make this an array!
 let inputNumbers = [
     73365,
     84016,
@@ -131,11 +131,9 @@ function fuelCounterUpper(mass) {
 }
 
 function fuelCounterWholeShip(arrayOfModuleMasses) {
-    // try and get our input as an array
-    let inputArray = Array.from(arrayOfModuleMasses);
     // declare a total count of fuel
     let totalFuel = 0;
-    for (let number of inputArray) {
+    for (let number of arrayOfModuleMasses) {
         let moduleFuel = fuelCounterUpper(number);
         totalFuel += moduleFuel;
     }
@@ -198,6 +196,24 @@ function fuelCounterUpperNowCountingFuel(mass) {
 
 }
 
-console.log('test counting fuel, should be 2: ', fuelCounterUpperNowCountingFuel(14));
-console.log('test counting fuel, should be 966: ', fuelCounterUpperNowCountingFuel(1969));
+// tests:
+// console.log('test counting fuel, should be 2: ', fuelCounterUpperNowCountingFuel(14));
+// console.log('test counting fuel, should be 966: ', fuelCounterUpperNowCountingFuel(1969));
+// console.log('test counting fuel, should be 50346: ', fuelCounterUpperNowCountingFuel(100756));
+
+// tests all pass!
+
+function fuelCounterWholeShipWithFuel(arrayOfModuleMasses) {
+    // declare a total count of fuel
+    let totalFuel = 0;
+    for (let number of arrayOfModuleMasses) {
+        let moduleFuel = fuelCounterUpperNowCountingFuel(number);
+        totalFuel += moduleFuel;
+    }
+
+    console.log('totalFuel when counting fuel that is needed: ', totalFuel);
+    return totalFuel;
+}
+
+console.log(fuelCounterWholeShipWithFuel(inputNumbers));
 
