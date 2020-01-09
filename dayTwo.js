@@ -41,17 +41,17 @@ function gravityAssist(inputArray) {
     for (let i = 0; i < outputArray.length; i += 4) {
         if (outputArray[i] === 1) {
             // console.log('getting to the sum area');
-            
-            let outputSum = outputArray[outputArray[i + 1]]+ outputArray[outputArray[i + 2]];
+
+            let outputSum = outputArray[outputArray[i + 1]] + outputArray[outputArray[i + 2]];
             outputArray[outputArray[i + 3]] = outputSum;
         } else if (outputArray[i] === 2) {
             // console.log('getting to the multiplication area');
-            
+
             let outputProduct = outputArray[outputArray[i + 1]] * outputArray[outputArray[i + 2]];
             outputArray[outputArray[i + 3]] = outputProduct;
         } else if (outputArray[i] === 99) {
             // console.log('getting to stop code 99');
-            
+
             break;
         }
     }
@@ -76,8 +76,8 @@ let testArray5 = [1, 1, 1, 4, 99, 5, 6, 0, 99];
 
 // tests all pass!!
 
-console.log('running full array before mutation: ', gravityAssist(puzzleInput));
-console.log('running full array before alarm: ', gravityAssist(beforeProgramAlarm));
+// console.log('running full array before mutation: ', gravityAssist(puzzleInput));
+// console.log('running full array before alarm: ', gravityAssist(beforeProgramAlarm));
 
 
 
@@ -99,3 +99,44 @@ console.log('running full array before alarm: ', gravityAssist(beforeProgramAlar
 // Once the program has halted, its output is available at address 0, also just like before.Each time you try a pair of inputs, make sure you first reset the computer's memory to the values in the program (your puzzle input) - in other words, don't reuse memory from a previous attempt.
 
 // Find the input noun and verb that cause the program to produce the output 19690720. What is 100 * noun + verb ? (For example, if noun = 12 and verb = 2, the answer would be 1202.)
+
+
+function findAnOutput(inputArray) {
+    // probably unnecessary, but just get the array and assign it; we'll mutate the new one.
+    let iteratedArray = inputArray;
+    // declare an output check. this time it's 19690720, but make it a variable to be easily changed (and identifiable) later
+    let outputCheck = 19690720;
+
+    // console.log('just to see wtf array we are passing in: ', iteratedArray);
+    
+
+    for (let i = 0; i < 100; i++) {
+        iteratedArray = inputArray;
+        iteratedArray[1] = 12;
+        // console.log('checking if we get here, iterated array: ', iteratedArray);
+        // break;
+
+        for (let j = 0; j < 100; j++) {
+            iteratedArray[2] = 2;
+            let testAnswer = gravityAssist(iteratedArray);
+
+            // console.log('here is array after running: ', testAnswer);
+            
+            console.log('here are answers: ', testAnswer[0]);
+            break;
+
+            if (iteratedArray[0] === outputCheck) {
+                break;
+            }
+        }
+
+        if (iteratedArray[0] === outputCheck) {
+            break;
+        }
+    }
+
+    console.log('found a match! array is: ', iteratedArray);
+    return iteratedArray;
+}
+
+console.log('running find output, answer: ', findAnOutput(puzzleInput));
