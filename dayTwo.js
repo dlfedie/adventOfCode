@@ -104,39 +104,42 @@ let testArray5 = [1, 1, 1, 4, 99, 5, 6, 0, 99];
 function findAnOutput(inputArray) {
     // probably unnecessary, but just get the array and assign it; we'll mutate the new one.
     let iteratedArray = inputArray;
+    // console.log('initial iterated array: ', iteratedArray);
+    
     // declare an output check. this time it's 19690720, but make it a variable to be easily changed (and identifiable) later
     let outputCheck = 19690720;
 
     // console.log('just to see wtf array we are passing in: ', iteratedArray);
-    
+
 
     for (let i = 0; i < 100; i++) {
-        iteratedArray = inputArray;
-        iteratedArray[1] = 12;
+        iteratedArray[0] = 1;
+        iteratedArray[1] = i;
         // console.log('checking if we get here, iterated array: ', iteratedArray);
         // break;
 
         for (let j = 0; j < 100; j++) {
-            iteratedArray[2] = 2;
-            let testAnswer = gravityAssist(iteratedArray);
+            iteratedArray[0] = 1;
+            iteratedArray[2] = j;
+            let beeef = iteratedArray;
+            console.log('checking if we get here, iterated array: ', beeef);
 
-            // console.log('here is array after running: ', testAnswer);
+            let testAnswer = gravityAssist(beeef);
+            console.log('test answer, should have run the damn function: ', testAnswer);
+            // break;
             
-            console.log('here are answers: ', testAnswer[0]);
-            break;
-
-            if (iteratedArray[0] === outputCheck) {
-                break;
+            if (testAnswer[0] === outputCheck) {
+                console.log('found a match! array is: ', testAnswer);
+                return testAnswer;
             }
         }
 
-        if (iteratedArray[0] === outputCheck) {
-            break;
-        }
+        // if (iteratedArray[0] === outputCheck) {
+        //     break;
+        // }
     }
 
-    console.log('found a match! array is: ', iteratedArray);
-    return iteratedArray;
+
 }
 
 console.log('running find output, answer: ', findAnOutput(puzzleInput));
