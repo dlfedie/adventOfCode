@@ -105,7 +105,7 @@ function findAnOutput(inputArray) {
     // probably unnecessary, but just get the array and assign it; we'll mutate the new one.
     let iteratedArray = inputArray;
     // console.log('initial iterated array: ', iteratedArray);
-    
+
     // declare an output check. this time it's 19690720, but make it a variable to be easily changed (and identifiable) later
     let outputCheck = 19690720;
 
@@ -113,32 +113,38 @@ function findAnOutput(inputArray) {
 
 
     for (let i = 0; i < 100; i++) {
-        iteratedArray[0] = 1;
+        // iteratedArray[0] = 1;
         iteratedArray[1] = i;
         // console.log('checking if we get here, iterated array: ', iteratedArray);
         // break;
 
         for (let j = 0; j < 100; j++) {
-            iteratedArray[0] = 1;
+            // iteratedArray[0] = 1;
             iteratedArray[2] = j;
-            let beeef = iteratedArray;
-            console.log('checking if we get here, iterated array: ', beeef);
+            // let beeef = iteratedArray;
+            // console.log('checking if we get here, iterated array: ', beeef);
 
-            let testAnswer = gravityAssist(beeef);
-            console.log('test answer, should have run the damn function: ', testAnswer);
+            let testAnswer = gravityAssist(iteratedArray);
+            console.log('test answer, should have run the damn function: ', testAnswer[0]);
             // break;
-            
+
             if (testAnswer[0] === outputCheck) {
                 console.log('found a match! array is: ', testAnswer);
                 return testAnswer;
+            } else {
+                iteratedArray[0] = 1;
             }
         }
 
-        // if (iteratedArray[0] === outputCheck) {
-        //     break;
-        // }
+        if (iteratedArray[0] === outputCheck) {
+            console.log('found a match! array is: ', iteratedArray);
+            return testAnswer;
+        } else {
+            iteratedArray[0] = 1;
+        }
     }
 
+    return iteratedArray[0];
 
 }
 
