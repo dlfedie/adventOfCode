@@ -39,16 +39,38 @@ function gravityAssist(inputArray) {
     let outputArray = inputArray;
     for (let i = 0; i < outputArray.length; i += 4) {
         if (outputArray[i] === 1) {
-            console.log('getting to the sum area');
+            // console.log('getting to the sum area');
             
             let outputSum = outputArray[outputArray[i + 1]]+ outputArray[outputArray[i + 2]];
-            outputArray[i + 3] = outputSum;
+            outputArray[outputArray[i + 3]] = outputSum;
         } else if (outputArray[i] === 2) {
-            console.log('getting to the multiplication area');
+            // console.log('getting to the multiplication area');
             
             let outputProduct = outputArray[outputArray[i + 1]] * outputArray[outputArray[i + 2]];
-            outputArray[i + 3] = outputProduct;
+            outputArray[outputArray[i + 3]] = outputProduct;
+        } else if (outputArray[i] === 99) {
+            // console.log('getting to stop code 99');
+            
+            break;
         }
     }
-    
+
+    // console.log('output array: ', outputArray);
+    return outputArray;
 }
+
+
+// tests
+let testArray = [1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50];
+let testArray2 = [1, 0, 0, 0, 99];
+let testArray3 = [2, 3, 0, 3, 99];
+let testArray4 = [2, 4, 4, 5, 99, 0];
+let testArray5 = [1, 1, 1, 4, 99, 5, 6, 0, 99];
+
+console.log('running test array: ', gravityAssist(testArray));
+console.log('running test array: ', gravityAssist(testArray2));
+console.log('running test array: ', gravityAssist(testArray3));
+console.log('running test array: ', gravityAssist(testArray4));
+console.log('running test array: ', gravityAssist(testArray5));
+
+// tests all pass!!
