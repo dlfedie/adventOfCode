@@ -122,8 +122,8 @@ function findAnOutput(inputArray) {
             // iteratedArray[0] = 1;
             iteratedArray[2] = j;
             // let beeef = iteratedArray;
-            // console.log('checking if we get here, iterated array: ', beeef);
-
+            console.log('checking if we get here, iterated array: ', iteratedArray[0], iteratedArray[1], iteratedArray[2]);
+            
             let testAnswer = gravityAssist(iteratedArray);
             console.log('test answer, should have run the damn function: ', testAnswer[0]);
             // break;
