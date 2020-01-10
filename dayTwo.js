@@ -101,51 +101,87 @@ let testArray5 = [1, 1, 1, 4, 99, 5, 6, 0, 99];
 // Find the input noun and verb that cause the program to produce the output 19690720. What is 100 * noun + verb ? (For example, if noun = 12 and verb = 2, the answer would be 1202.)
 
 
+function gravityAssistWithInts(inputInt1, inputInt2, inputArray) {
+    const beef = inputArray;
+    console.log('beef at 0: ', beef[0]);
+    
+    let outputArray = inputArray;
+    outputArray[1] = inputInt1;
+    outputArray[2] = inputInt2;
+    for (let i = 0; i < outputArray.length; i += 4) {
+        if (outputArray[i] === 1) {
+            // console.log('getting to the sum area');
+
+            let outputSum = outputArray[outputArray[i + 1]] + outputArray[outputArray[i + 2]];
+            outputArray[outputArray[i + 3]] = outputSum;
+        } else if (outputArray[i] === 2) {
+            // console.log('getting to the multiplication area');
+
+            let outputProduct = outputArray[outputArray[i + 1]] * outputArray[outputArray[i + 2]];
+            outputArray[outputArray[i + 3]] = outputProduct;
+        } else if (outputArray[i] === 99) {
+            // console.log('getting to stop code 99');
+
+            break;
+        }
+    }
+
+    console.log('input array: ', beef[0], 'output array: ', outputArray[0]);
+    return outputArray;
+}
+
+
 function findAnOutput(inputArray) {
     // probably unnecessary, but just get the array and assign it; we'll mutate the new one.
-    let iteratedArray = inputArray;
-    // console.log('initial iterated array: ', iteratedArray);
+    const iteratedArray = inputArray;
+    console.log('initial iterated array: ', iteratedArray);
 
     // declare an output check. this time it's 19690720, but make it a variable to be easily changed (and identifiable) later
-    let outputCheck = 19690720;
+    const outputCheck = 19690720;
 
     // console.log('just to see wtf array we are passing in: ', iteratedArray);
 
 
     for (let i = 0; i < 100; i++) {
-        // iteratedArray[0] = 1;
-        iteratedArray[1] = i;
+        // let beefArray = iteratedArray;
+        // beefArray[0] = 1;
+        // beefArray[1] = i;
         // console.log('checking if we get here, iterated array: ', iteratedArray);
         // break;
 
         for (let j = 0; j < 100; j++) {
-            // iteratedArray[0] = 1;
-            iteratedArray[2] = j;
+            // beefArray[0] = 1;
+            // beefArray[2] = j;
             // let beeef = iteratedArray;
-            console.log('checking if we get here, iterated array: ', iteratedArray[0], iteratedArray[1], iteratedArray[2]);
+            // console.log('checking if we get here, iterated array: ', beefArray[0], beefArray[1], beefArray[2]);
             
-            let testAnswer = gravityAssist(iteratedArray);
-            console.log('test answer, should have run the damn function: ', testAnswer[0]);
+            // let testAnswer = gravityAssist(beefArray);
+            // console.log('test answer, should have run the damn function: ', testAnswer);
             // break;
 
-            if (testAnswer[0] === outputCheck) {
-                console.log('found a match! array is: ', testAnswer);
-                return testAnswer;
+            let newAnswer = gravityAssistWithInts(i, j, iteratedArray);
+
+            console.log('new way of getting value: ', i, j, newAnswer[0], newAnswer[1], newAnswer[2]);
+            
+            break;
+
+            if (newAnswer === outputCheck) {
+                console.log('found a match! array is: ', newAnswer);
+                return newAnswer;
             } else {
-                iteratedArray[0] = 1;
+                newAnswer = []
+                
             }
         }
 
-        if (iteratedArray[0] === outputCheck) {
-            console.log('found a match! array is: ', iteratedArray);
-            return testAnswer;
-        } else {
-            iteratedArray[0] = 1;
-        }
+        
     }
 
-    return iteratedArray[0];
+    // return beefArray[0];
 
 }
 
-console.log('running find output, answer: ', findAnOutput(puzzleInput));
+// console.log('running find output, answer: ', findAnOutput(puzzleInput));
+
+console.log('new app: ', gravityAssistWithInts(99, 0, puzzleInput));
+
