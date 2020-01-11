@@ -101,11 +101,13 @@ let testArray5 = [1, 1, 1, 4, 99, 5, 6, 0, 99];
 // Find the input noun and verb that cause the program to produce the output 19690720. What is 100 * noun + verb ? (For example, if noun = 12 and verb = 2, the answer would be 1202.)
 
 
-function gravityAssistWithInts(inputInt1, inputInt2, inputArray) {
-    const beef = inputArray;
-    console.log('beef at 0: ', beef[0]);
-    
-    let outputArray = inputArray;
+function gravityAssistWithInts(inputInt1, inputInt2) {
+    const beef = [1, 0, 0, 3, 1, 1, 2, 3, 1, 3, 4, 3, 1, 5, 0, 3, 2, 1, 13, 19, 1, 9, 19, 23, 2, 13, 23, 27, 2, 27, 13, 31, 2, 31, 10, 35, 1, 6, 35, 39, 1, 5, 39, 43, 1, 10, 43, 47, 1, 5, 47, 51, 1, 13, 51, 55, 2, 55, 9, 59, 1, 6, 59, 63, 1, 13, 63, 67, 1, 6, 67, 71, 1, 71, 10, 75, 2, 13, 75, 79, 1, 5, 79, 83, 2, 83, 6, 87, 1, 6, 87, 91, 1, 91, 13, 95, 1, 95, 13, 99, 2, 99, 13, 103, 1, 103, 5, 107, 2, 107, 10, 111, 1, 5, 111, 115, 1, 2, 115, 119, 1, 119, 6, 0, 99, 2, 0, 14, 0]
+
+    // console.log('beef at 0: ', beef[0]);
+    const outputCheck = 19690720;
+
+    let outputArray = beef;
     outputArray[1] = inputInt1;
     outputArray[2] = inputInt2;
     for (let i = 0; i < outputArray.length; i += 4) {
@@ -126,7 +128,15 @@ function gravityAssistWithInts(inputInt1, inputInt2, inputArray) {
         }
     }
 
-    console.log('input array: ', beef[0], 'output array: ', outputArray[0]);
+    if (outputArray[0] === outputCheck) {
+        console.log('fkn got it!: ', outputArray[0], outputArray[1], outputArray[2]);
+        return outputArray;
+    } else {
+        outputArray[0] = 1;
+    }
+
+
+    // console.log('input array beef: ', beef[0], 'output array: ', outputArray[0]);
     return outputArray;
 }
 
@@ -143,6 +153,7 @@ function findAnOutput(inputArray) {
 
 
     for (let i = 0; i < 100; i++) {
+        iteratedArray[0] = 1;
         // let beefArray = iteratedArray;
         // beefArray[0] = 1;
         // beefArray[1] = i;
@@ -150,38 +161,39 @@ function findAnOutput(inputArray) {
         // break;
 
         for (let j = 0; j < 100; j++) {
+            iteratedArray[0] = 1;
             // beefArray[0] = 1;
             // beefArray[2] = j;
             // let beeef = iteratedArray;
             // console.log('checking if we get here, iterated array: ', beefArray[0], beefArray[1], beefArray[2]);
-            
+
             // let testAnswer = gravityAssist(beefArray);
             // console.log('test answer, should have run the damn function: ', testAnswer);
             // break;
 
-            let newAnswer = gravityAssistWithInts(i, j, iteratedArray);
+            let newAnswer = gravityAssistWithInts(i, j);
 
             console.log('new way of getting value: ', i, j, newAnswer[0], newAnswer[1], newAnswer[2]);
-            
-            break;
 
-            if (newAnswer === outputCheck) {
+            // break;
+
+            if (newAnswer[0] === outputCheck) {
                 console.log('found a match! array is: ', newAnswer);
                 return newAnswer;
             } else {
                 newAnswer = []
-                
+
             }
         }
 
-        
+
     }
 
     // return beefArray[0];
 
 }
 
-// console.log('running find output, answer: ', findAnOutput(puzzleInput));
+console.log('running find output, answer: ', findAnOutput(puzzleInput));
 
-console.log('new app: ', gravityAssistWithInts(99, 0, puzzleInput));
+// console.log('new function: ', gravityAssistWithInts(99, 0));
 
