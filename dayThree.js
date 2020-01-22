@@ -124,16 +124,16 @@ function wireCoordinates(movementArray, currentLocation) {
     return coordinatesCrossed;
 }
 
-console.log('testing wire coordinates with move array of [3, 0] and current location of [0, 0]: ', wireCoordinates([3, 0], [0, 0]));
-console.log('testing wire coordinates with move array of [10, 0] and current location of [0, 0]: ', wireCoordinates([10, 0], [0, 0]));
-console.log('testing wire coordinates with move array of [-3, 0] and current location of [0, 0]: ', wireCoordinates([-3, 0], [0, 0]));
-console.log('testing wire coordinates with move array of [3, 0] and current location of [2, 5]: ', wireCoordinates([3, 0], [2, 5]));
-console.log('testing wire coordinates with move array of [-3, 0] and current location of [2, 5]: ', wireCoordinates([-3, 0], [2, 5]));
-console.log('testing wire coordinates with move array of [0, 3] and current location of [0, 0]: ', wireCoordinates([0, 3], [0, 0]));
-console.log('testing wire coordinates with move array of [0, 10] and current location of [0, 0]: ', wireCoordinates([0, 10], [0, 0]));
-console.log('testing wire coordinates with move array of [0, -3] and current location of [0, 0]: ', wireCoordinates([0, -3], [0, 0]));
-console.log('testing wire coordinates with move array of [0, 3] and current location of [2, 5]: ', wireCoordinates([0, 3], [2, 5]));
-console.log('testing wire coordinates with move array of [0, -3] and current location of [2, 5]: ', wireCoordinates([0, -3], [2, 5]));
+// console.log('testing wire coordinates with move array of [3, 0] and current location of [0, 0]: ', wireCoordinates([3, 0], [0, 0]));
+// console.log('testing wire coordinates with move array of [10, 0] and current location of [0, 0]: ', wireCoordinates([10, 0], [0, 0]));
+// console.log('testing wire coordinates with move array of [-3, 0] and current location of [0, 0]: ', wireCoordinates([-3, 0], [0, 0]));
+// console.log('testing wire coordinates with move array of [3, 0] and current location of [2, 5]: ', wireCoordinates([3, 0], [2, 5]));
+// console.log('testing wire coordinates with move array of [-3, 0] and current location of [2, 5]: ', wireCoordinates([-3, 0], [2, 5]));
+// console.log('testing wire coordinates with move array of [0, 3] and current location of [0, 0]: ', wireCoordinates([0, 3], [0, 0]));
+// console.log('testing wire coordinates with move array of [0, 10] and current location of [0, 0]: ', wireCoordinates([0, 10], [0, 0]));
+// console.log('testing wire coordinates with move array of [0, -3] and current location of [0, 0]: ', wireCoordinates([0, -3], [0, 0]));
+// console.log('testing wire coordinates with move array of [0, 3] and current location of [2, 5]: ', wireCoordinates([0, 3], [2, 5]));
+// console.log('testing wire coordinates with move array of [0, -3] and current location of [2, 5]: ', wireCoordinates([0, -3], [2, 5]));
 
 
 
@@ -141,12 +141,26 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
     // central port will always be 0, 0 on the x/y axis.
     const centralPort = [0, 0];
     // start both wires at central port
-    let wireOneLocation = [0, 0];
-    let wireTwoLocation = [0, 0];
+    let wireOneLocation = centralPort;
+    let wireTwoLocation = centralPort;
     // creating arrays to push each location crossed. these will get huge
     let wireOneArrayOfCoordinatesCrossed = [];
     let wireTwoArrayOfCoordinatesCrossed = [];
+    for (let i = 0; i < arrayInstructions1.length; i ++) {
+        let moveInstructions = moveLocation(arrayInstructions1[i]);
+        let wireOneMoves = wireCoordinates(moveInstructions, wireOneLocation);
+        wireOneArrayOfCoordinatesCrossed.push(wireOneMoves);
+        wireOneLocation = wireOneMoves[wireOneMoves.length - 1];
+        moveInstructions = [];
+        wireOneMoves = [];
+    }
+
+    return wireOneArrayOfCoordinatesCrossed;
 
 
 
 }
+
+let testArray1 = ['R8', 'U5', 'L5', 'D3'];
+
+console.log('testing wire coordinates of test of [R8,U5,L5,D3]: ', findWiresCrossed(testArray1, testArray1));
