@@ -146,21 +146,62 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
     // creating arrays to push each location crossed. these will get huge
     let wireOneArrayOfCoordinatesCrossed = [];
     let wireTwoArrayOfCoordinatesCrossed = [];
+    // store matches (where they cross)
+    let matches = [];
+
+    // loop through first set of instructions
     for (let i = 0; i < arrayInstructions1.length; i ++) {
+        // need to get the move instructions at each index
         let moveInstructions = moveLocation(arrayInstructions1[i]);
+        // then grab the total coordinates, starting with the location we're at. default is central port
         let wireOneMoves = wireCoordinates(moveInstructions, wireOneLocation);
-        wireOneArrayOfCoordinatesCrossed.push(wireOneMoves);
+        // push those moves to the full array. we'll have dupes at corner points, but that shouldn't matter.. can revisit if needed.
+        wireOneArrayOfCoordinatesCrossed.push(...wireOneMoves);
+        // then set ourlocation to the last coordinate moved to
         wireOneLocation = wireOneMoves[wireOneMoves.length - 1];
+        // then clear out our move instructions and moves, in case they have residual elements in them
         moveInstructions = [];
         wireOneMoves = [];
     }
 
-    return wireOneArrayOfCoordinatesCrossed;
+    // loop through second set of instructions
+    for (let i = 0; i < arrayInstructions2.length; i++) {
+        // need to get the move instructions at each index
+        let moveInstructions = moveLocation(arrayInstructions2[i]);
+        // then grab the total coordinates, starting with the location we're at. default is central port
+        let wireTwoMoves = wireCoordinates(moveInstructions, wireTwoLocation);
+        // push those moves to the full array. we'll have dupes at corner points, but that shouldn't matter.. can revisit if needed.
+        wireTwoArrayOfCoordinatesCrossed.push(...wireTwoMoves);
+        // then set ourlocation to the last coordinate moved to
+        wireTwoLocation = wireTwoMoves[wireTwoMoves.length - 1];
+        // then clear out our move instructions and moves, in case they have residual elements in them
+        moveInstructions = [];
+        wireTwoMoves = [];
+    }
+    console.log('wire one coordinates: ', wireOneArrayOfCoordinatesCrossed);
+    console.log('wire two coordinates: ', wireTwoArrayOfCoordinatesCrossed);
+    
+    
+    wireOneArrayOfCoordinatesCrossed = [1, 2, 3];
+    wireTwoArrayOfCoordinatesCrossed = [2, 3, 4];
 
+    // return wireOneArrayOfCoordinatesCrossed;
+    // return wireTwoArrayOfCoordinatesCrossed;
+    
+    // let intersection = wireOneArrayOfCoordinatesCrossed.filter(element => wireTwoArrayOfCoordinatesCrossed.includes(element));
 
+    // return intersection;
+
+    const intersection = (a, b) => {
+        const s = new Set(b);
+        return a.filter(x => s.has(x));
+    };
+
+    return intersection(wireOneArrayOfCoordinatesCrossed, wireTwoArrayOfCoordinatesCrossed);
 
 }
 
 let testArray1 = ['R8', 'U5', 'L5', 'D3'];
+let testArray2 = ['U7', 'R6', 'D4', 'L4'];
 
-console.log('testing wire coordinates of test of [R8,U5,L5,D3]: ', findWiresCrossed(testArray1, testArray1));
+console.log('testing wire coordinates of test of [R8,U5,L5,D3] and [U7,R6,D4,L4]: ', findWiresCrossed(testArray1, testArray2));
