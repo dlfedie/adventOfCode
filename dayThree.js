@@ -79,9 +79,9 @@ function wireCoordinates(movementArray, currentLocation) {
     // check if y is 0, then add to the x value
     if (movementArray[1] === 0) {
         // grab x value from current location
-        let xValue = currentLocation[0];
+        let xValue = currentLocation.x;
         // grab y value from current Location
-        let yValue = currentLocation[1];
+        let yValue = currentLocation.y;
         // grab how much we are moving in the x range
         let xMovement = Math.abs(movementArray[0]);
         // grab movement sign and we'll know to either subtract or add.
@@ -89,20 +89,20 @@ function wireCoordinates(movementArray, currentLocation) {
         if (isNegative === -1) {
             // console.log('ya is negative');
             for (let i = 0; i < xMovement + 1; i++) {
-                coordinatesCrossed.push([xValue - i, yValue]);
+                coordinatesCrossed.push({ x: xValue - i, y: yValue });
             }
         } else {
             // console.log('nope is positive');
             for (let i = 0; i < xMovement + 1; i++) {
-                coordinatesCrossed.push([xValue + i, yValue]);
+                coordinatesCrossed.push({ x: xValue + i, y: yValue });
             }
         }
-        
+
     } else if (movementArray[0] === 0) {
         // grab x value from current location
-        let xValue = currentLocation[0];
+        let xValue = currentLocation.x;
         // grab y value from current Location
-        let yValue = currentLocation[1];
+        let yValue = currentLocation.y;
         // grab how much we are moving in the x range
         let yMovement = Math.abs(movementArray[1]);
         // grab movement sign and we'll know to either subtract or add.
@@ -110,12 +110,12 @@ function wireCoordinates(movementArray, currentLocation) {
         if (isNegative === -1) {
             // console.log('ya is negative');
             for (let i = 0; i < yMovement + 1; i++) {
-                coordinatesCrossed.push([xValue, yValue - i]);
+                coordinatesCrossed.push({ x: xValue, y: yValue - i });
             }
         } else {
             // console.log('nope is positive');
             for (let i = 0; i < yMovement + 1; i++) {
-                coordinatesCrossed.push([xValue, yValue + i]);
+                coordinatesCrossed.push({ x: xValue, y: yValue + i });
             }
         }
 
@@ -139,7 +139,7 @@ function wireCoordinates(movementArray, currentLocation) {
 
 function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
     // central port will always be 0, 0 on the x/y axis.
-    const centralPort = [0, 0];
+    const centralPort = { x: 0, y: 0 };
     // start both wires at central port
     let wireOneLocation = centralPort;
     let wireTwoLocation = centralPort;
@@ -150,7 +150,7 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
     let matches = [];
 
     // loop through first set of instructions
-    for (let i = 0; i < arrayInstructions1.length; i ++) {
+    for (let i = 0; i < arrayInstructions1.length; i++) {
         // need to get the move instructions at each index
         let moveInstructions = moveLocation(arrayInstructions1[i]);
         // then grab the total coordinates, starting with the location we're at. default is central port
@@ -180,24 +180,24 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
     }
     console.log('wire one coordinates: ', wireOneArrayOfCoordinatesCrossed);
     console.log('wire two coordinates: ', wireTwoArrayOfCoordinatesCrossed);
+
+
+    // let wireOneStringified = JSON.stringify(wireOneArrayOfCoordinatesCrossed);
+    // let wireTwoStringified = JSON.stringify(wireTwoArrayOfCoordinatesCrossed);
+    // console.log('wires stringified: ', wireOneStringified, wireTwoStringified);
+
+    for (let i = 0; i < wireOneArrayOfCoordinatesCrossed.length; i++) {
+        for (let j = 0; j < wireTwoArrayOfCoordinatesCrossed.length; j++) {
+            if (JSON.stringify(wireTwoArrayOfCoordinatesCrossed[j]) === JSON.stringify(wireOneArrayOfCoordinatesCrossed[i])) {
+                matches.push(wireTwoArrayOfCoordinatesCrossed[j]);
+            }
+        }
+    }
+
+    console.log('matches: ', matches);
+
+
     
-    
-    wireOneArrayOfCoordinatesCrossed = [1, 2, 3];
-    wireTwoArrayOfCoordinatesCrossed = [2, 3, 4];
-
-    // return wireOneArrayOfCoordinatesCrossed;
-    // return wireTwoArrayOfCoordinatesCrossed;
-    
-    // let intersection = wireOneArrayOfCoordinatesCrossed.filter(element => wireTwoArrayOfCoordinatesCrossed.includes(element));
-
-    // return intersection;
-
-    const intersection = (a, b) => {
-        const s = new Set(b);
-        return a.filter(x => s.has(x));
-    };
-
-    return intersection(wireOneArrayOfCoordinatesCrossed, wireTwoArrayOfCoordinatesCrossed);
 
 }
 
