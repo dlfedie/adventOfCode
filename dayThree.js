@@ -98,6 +98,27 @@ function wireCoordinates(movementArray, currentLocation) {
             }
         }
         
+    } else if (movementArray[0] === 0) {
+        // grab x value from current location
+        let xValue = currentLocation[0];
+        // grab y value from current Location
+        let yValue = currentLocation[1];
+        // grab how much we are moving in the x range
+        let yMovement = Math.abs(movementArray[1]);
+        // grab movement sign and we'll know to either subtract or add.
+        let isNegative = Math.sign(movementArray[1]);
+        if (isNegative === -1) {
+            // console.log('ya is negative');
+            for (let i = 0; i < yMovement + 1; i++) {
+                coordinatesCrossed.push([xValue, yValue - i]);
+            }
+        } else {
+            // console.log('nope is positive');
+            for (let i = 0; i < yMovement + 1; i++) {
+                coordinatesCrossed.push([xValue, yValue + i]);
+            }
+        }
+
     }
 
     return coordinatesCrossed;
@@ -108,6 +129,11 @@ console.log('testing wire coordinates with move array of [10, 0] and current loc
 console.log('testing wire coordinates with move array of [-3, 0] and current location of [0, 0]: ', wireCoordinates([-3, 0], [0, 0]));
 console.log('testing wire coordinates with move array of [3, 0] and current location of [2, 5]: ', wireCoordinates([3, 0], [2, 5]));
 console.log('testing wire coordinates with move array of [-3, 0] and current location of [2, 5]: ', wireCoordinates([-3, 0], [2, 5]));
+console.log('testing wire coordinates with move array of [0, 3] and current location of [0, 0]: ', wireCoordinates([0, 3], [0, 0]));
+console.log('testing wire coordinates with move array of [0, 10] and current location of [0, 0]: ', wireCoordinates([0, 10], [0, 0]));
+console.log('testing wire coordinates with move array of [0, -3] and current location of [0, 0]: ', wireCoordinates([0, -3], [0, 0]));
+console.log('testing wire coordinates with move array of [0, 3] and current location of [2, 5]: ', wireCoordinates([0, 3], [2, 5]));
+console.log('testing wire coordinates with move array of [0, -3] and current location of [2, 5]: ', wireCoordinates([0, -3], [2, 5]));
 
 
 
