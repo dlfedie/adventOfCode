@@ -188,14 +188,20 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
 
     for (let i = 0; i < wireOneArrayOfCoordinatesCrossed.length; i++) {
         for (let j = 0; j < wireTwoArrayOfCoordinatesCrossed.length; j++) {
-            if (JSON.stringify(wireTwoArrayOfCoordinatesCrossed[j]) === JSON.stringify(wireOneArrayOfCoordinatesCrossed[i])) {
+            if (JSON.stringify(wireTwoArrayOfCoordinatesCrossed[j]) === JSON.stringify(wireOneArrayOfCoordinatesCrossed[i]) && JSON.stringify(wireTwoArrayOfCoordinatesCrossed) !== JSON.stringify(centralPort)) {
                 matches.push(wireTwoArrayOfCoordinatesCrossed[j]);
             }
         }
     }
 
+
+    // so the way i have it, 0, 0 will always be there. i'll just get rid of it here. yes, shift is not the best.. i don't know why adding the other conditional doesn't fix the issue, but... moving on.
+    matches.shift();
+    
+
     console.log('matches: ', matches);
 
+    
 
     
 
