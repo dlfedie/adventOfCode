@@ -196,14 +196,31 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
 
 
     // so the way i have it, 0, 0 will always be there. i'll just get rid of it here. yes, shift is not the best.. i don't know why adding the other conditional doesn't fix the issue, but... moving on.
-    matches.shift();
+    // matches.shift();
     
+    // eh, fuck it. i can just ignore 0's in the next loop.
 
     console.log('matches: ', matches);
 
-    
+    // loop over our matches and get the smallest of the distances. distances are just going to be x + y. first just store the distance
+    for (let i = 0; i < matches.length; i++) {
+        matches[i].distance = matches[i].x + matches[i].y;
+    }
 
+    console.log('matches: ', matches);
+
+    let shortestDistance = matches[1].distance;
+
+
+    for (let i = 0; i < matches.length; i++) {
+        if (matches[i].distance < shortestDistance && matches[i].distance !== 0) {
+            shortestDistance = matches[i].distance;
+        }
+    }
+
+    console.log('shortest distance: ', shortestDistance);
     
+    return shortestDistance;
 
 }
 
