@@ -89,12 +89,12 @@ function wireCoordinates(movementArray, currentLocation) {
         if (isNegative === -1) {
             // console.log('ya is negative');
             for (let i = 0; i < xMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue - i, y: yValue });
+                coordinatesCrossed.push({ x: xValue - i, y: yValue, wireDistance: (Math.abs(xValue) + Math.abs(yValue)) });
             }
         } else {
             // console.log('nope is positive');
             for (let i = 0; i < xMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue + i, y: yValue });
+                coordinatesCrossed.push({ x: xValue + i, y: yValue, wireDistance: (Math.abs(xValue) + Math.abs(yValue)) });
             }
         }
 
@@ -110,12 +110,12 @@ function wireCoordinates(movementArray, currentLocation) {
         if (isNegative === -1) {
             // console.log('ya is negative');
             for (let i = 0; i < yMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue, y: yValue - i });
+                coordinatesCrossed.push({ x: xValue, y: yValue - i, wireDistance: (Math.abs(xValue) + Math.abs(yValue)) });
             }
         } else {
             // console.log('nope is positive');
             for (let i = 0; i < yMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue, y: yValue + i });
+                coordinatesCrossed.push({ x: xValue, y: yValue + i, wireDistance: (Math.abs(xValue) + Math.abs(yValue)) });
             }
         }
 
@@ -196,6 +196,7 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
         for (let elem of setA) {
             for (let el of setB) {
                 if (elem.x === el.x && elem.y === el.y) {
+                    elem.steps = elem.wireDistance + el.wireDistance;
                     _intersection.add(elem);
                 }
             }
