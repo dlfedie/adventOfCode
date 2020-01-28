@@ -82,19 +82,23 @@ function wireCoordinates(movementArray, currentLocation) {
         let xValue = currentLocation.x;
         // grab y value from current Location
         let yValue = currentLocation.y;
+        // grab total movement so far
+        let stepsTraveledSoFar = currentLocation.steps;
+
         // grab how much we are moving in the x range
         let xMovement = Math.abs(movementArray[0]);
         // grab movement sign and we'll know to either subtract or add.
         let isNegative = Math.sign(movementArray[0]);
+
         if (isNegative === -1) {
             // console.log('ya is negative');
             for (let i = 0; i < xMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue - i, y: yValue });
+                coordinatesCrossed.push({ x: xValue - i, y: yValue, wireDistance: (Math.abs(xValue) + Math.abs(yValue)), steps: stepsTraveledSoFar + i });
             }
         } else {
             // console.log('nope is positive');
             for (let i = 0; i < xMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue + i, y: yValue });
+                coordinatesCrossed.push({ x: xValue + i, y: yValue, wireDistance: (Math.abs(xValue) + Math.abs(yValue)), steps: stepsTraveledSoFar + i });
             }
         }
 
@@ -103,6 +107,8 @@ function wireCoordinates(movementArray, currentLocation) {
         let xValue = currentLocation.x;
         // grab y value from current Location
         let yValue = currentLocation.y;
+        // grab total movement so far
+        let stepsTraveledSoFar = currentLocation.steps;
         // grab how much we are moving in the x range
         let yMovement = Math.abs(movementArray[1]);
         // grab movement sign and we'll know to either subtract or add.
@@ -110,12 +116,12 @@ function wireCoordinates(movementArray, currentLocation) {
         if (isNegative === -1) {
             // console.log('ya is negative');
             for (let i = 0; i < yMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue, y: yValue - i });
+                coordinatesCrossed.push({ x: xValue, y: yValue - i, wireDistance: (Math.abs(xValue) + Math.abs(yValue)), steps: stepsTraveledSoFar + i });
             }
         } else {
             // console.log('nope is positive');
             for (let i = 0; i < yMovement + 1; i++) {
-                coordinatesCrossed.push({ x: xValue, y: yValue + i });
+                coordinatesCrossed.push({ x: xValue, y: yValue + i, wireDistance: (Math.abs(xValue) + Math.abs(yValue)), steps: stepsTraveledSoFar + i });
             }
         }
 
@@ -139,7 +145,7 @@ function wireCoordinates(movementArray, currentLocation) {
 
 function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
     // central port will always be 0, 0 on the x/y axis.
-    const centralPort = { x: 0, y: 0 };
+    const centralPort = { x: 0, y: 0, steps: 0 };
     // start both wires at central port
     let wireOneLocation = centralPort;
     let wireTwoLocation = centralPort;
@@ -196,63 +202,44 @@ function findWiresCrossed(arrayInstructions1, arrayInstructions2) {
         for (let elem of setA) {
             for (let el of setB) {
                 if (elem.x === el.x && elem.y === el.y) {
+                    elem.steps = elem.steps + el.steps;
                     _intersection.add(elem);
                 }
             }
         }
 
-        // for (let elem of setB) {
-            
-            
-        //     if (setA.has(elem)) {
-        //         _intersection.add(elem);
-        //     }
-        // }
         return _intersection;
     }
 
     matches = intersection(setOne, setTwo);
 
     console.log('intersection of sets: ', matches);
-    
-
-    // for (let i = 0; i < wireOneArrayOfCoordinatesCrossed.length; i++) {
-    //     for (let j = 0; j < wireTwoArrayOfCoordinatesCrossed.length; j++) {
-    //         if (JSON.stringify(wireTwoArrayOfCoordinatesCrossed[j]) === JSON.stringify(wireOneArrayOfCoordinatesCrossed[i]) && JSON.stringify(wireTwoArrayOfCoordinatesCrossed) !== JSON.stringify(centralPort)) {
-    //             matches.push(wireTwoArrayOfCoordinatesCrossed[j]);
-    //             // console.log('still running');
-                
-    //         }
-    //     }
-    // }
 
 
-    // so the way i have it, 0, 0 will always be there. i'll just get rid of it here. yes, shift is not the best.. i don't know why adding the other conditional doesn't fix the issue, but... moving on.
-    // matches.shift();
-    
-    // eh, fuck it. i can just ignore 0's in the next loop.
 
-    matches = [... matches];
+
+    matches = [...matches];
     // console.log('matches, after set spread: ', matches);
 
+    // below is unnecessary, now that we're already tracking steps/distances above for part 2.
     // loop over our matches and get the smallest of the distances. distances are just going to be x + y. first just store the distance. distance has to be absoulte
-    for (let i = 0; i < matches.length; i++) {
-        matches[i].distance = Math.abs(matches[i].x) + Math.abs(matches[i].y);
-    }
+    // for (let i = 0; i < matches.length; i++) {
+    //     matches[i].distance = Math.abs(matches[i].x) + Math.abs(matches[i].y);
+    // }
 
     console.log('matches: ', matches);
 
-    let shortestDistance = matches[1].distance;
+    let shortestDistance = matches[1].steps;
 
 
     for (let i = 0; i < matches.length; i++) {
-        if (matches[i].distance < shortestDistance && matches[i].distance !== 0) {
-            shortestDistance = matches[i].distance;
+        if (matches[i].steps < shortestDistance && matches[i].steps !== 0) {
+            shortestDistance = matches[i].steps;
         }
     }
 
-    console.log('shortest distance: ', shortestDistance);
-    
+    console.log('shortest distance, now step count of both wires taken into account: ', shortestDistance);
+
     return shortestDistance;
 
 }
@@ -262,10 +249,10 @@ let testArray2 = ['U7', 'R6', 'D4', 'L4'];
 
 // console.log('testing wire coordinates of test of [R8,U5,L5,D3] and [U7,R6,D4,L4]: ', findWiresCrossed(testArray1, testArray2));
 
-let testArray3 = ['R75', 'D30', 'R83', 'U83', 'L12', 'D49', 'R71', 'U7', 'L72'] 
+let testArray3 = ['R75', 'D30', 'R83', 'U83', 'L12', 'D49', 'R71', 'U7', 'L72']
 let testArray4 = ['U62', 'R66', 'U55', 'R34', 'D71', 'R55', 'D58', 'R83'];
 
-// console.log('testing 2nd test, should be 159: ', findWiresCrossed(testArray3, testArray4));
+// console.log('testing 2nd test, should be 610: ', findWiresCrossed(testArray3, testArray4));
 // ha, need absolute values, otherwise 2 + -2 = 0, when the distance to it is actually 4
 
 
