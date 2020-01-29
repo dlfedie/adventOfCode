@@ -18,8 +18,17 @@
 
 function findPassword(lowRangeInt, highRangeInt) {
     // store passwords in array
-
+    let potentialPasswords = [];
+    for (let i = lowRangeInt; i <= highRangeInt; i ++) {
+        if (doesItHaveDoubles(i) && doTheyDecrease(i)) {
+            potentialPasswords.push(i);
+        }
+    }
+    return potentialPasswords;
 }
+
+console.log('checking potential passwords between 111 and 123: ', findPassword(111, 123));
+
 
 function doesItHaveDoubles(int) {
     let lastDigit = 0;
@@ -40,9 +49,9 @@ function doesItHaveDoubles(int) {
     return doubles;
 };
 
-console.log('trying double thing 111111, should be true: ', doesItHaveDoubles(111111));
-console.log('trying double thing 123789, should be false: ', doesItHaveDoubles(123789));
-console.log('trying double thing 123378, should be true: ', doesItHaveDoubles(123378));
+// console.log('trying double thing 111111, should be true: ', doesItHaveDoubles(111111));
+// console.log('trying double thing 123789, should be false: ', doesItHaveDoubles(123789));
+// console.log('trying double thing 123378, should be true: ', doesItHaveDoubles(123378));
 
 function doTheyDecrease(int) {
     let lastDigit = 0;
@@ -61,7 +70,7 @@ function doTheyDecrease(int) {
     return doesNotDecrease;
 }
 
-console.log('checking if they decrease 111111, should be true: ', doTheyDecrease(111111));
-console.log('checking if they decrease 112111, should be false: ', doTheyDecrease(112111));
-console.log('checking if they decrease 123450, should be false: ', doTheyDecrease(123450));
+// console.log('checking if they decrease 111111, should be true: ', doTheyDecrease(111111));
+// console.log('checking if they decrease 112111, should be false: ', doTheyDecrease(112111));
+// console.log('checking if they decrease 123450, should be false: ', doTheyDecrease(123450));
 
