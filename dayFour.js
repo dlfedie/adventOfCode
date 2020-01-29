@@ -23,18 +23,23 @@ function findPassword(lowRangeInt, highRangeInt) {
 function doesItHaveDoubles(int) {
     let lastDigit = 0;
     let doubles = false;
-    for (let i = 0; i < int.length; i++) {
-        if (int[i] === lastDigit) {
-            console.log();
+    let arrayOfInt = Array.from(int.toString()).map(Number);
+    console.log('array? ', arrayOfInt);
+    
+    for (let i = 0; i < arrayOfInt.length; i++) {
+        if (arrayOfInt[i] === lastDigit) {
+            console.log('int @ i: ', arrayOfInt[i], 'lastDigit: ', lastDigit);
             
             doubles = true;
-            return;
+            return doubles;
         } else {
-            lastDigit = int[i];
+            lastDigit = arrayOfInt[i];
+            console.log('last digit? ', lastDigit);
+            
         }
-        // return doubles;
     }
     return doubles;
 };
 
 console.log('trying double thing 111111, should be true: ', doesItHaveDoubles(111111));
+console.log('trying double thing 123789, should be false: ', doesItHaveDoubles(123789));
