@@ -17,6 +17,7 @@
 //     Your puzzle input is 172851 - 675869.
 
 function findPassword(lowRangeInt, highRangeInt) {
+    // store passwords in array
 
 }
 
@@ -24,18 +25,16 @@ function doesItHaveDoubles(int) {
     let lastDigit = 0;
     let doubles = false;
     let arrayOfInt = Array.from(int.toString()).map(Number);
-    console.log('array? ', arrayOfInt);
+    // console.log('array? ', arrayOfInt);
     
     for (let i = 0; i < arrayOfInt.length; i++) {
         if (arrayOfInt[i] === lastDigit) {
-            console.log('int @ i: ', arrayOfInt[i], 'lastDigit: ', lastDigit);
-            
+            // console.log('int @ i: ', arrayOfInt[i], 'lastDigit: ', lastDigit);
             doubles = true;
             return doubles;
         } else {
             lastDigit = arrayOfInt[i];
-            console.log('last digit? ', lastDigit);
-            
+            // console.log('last digit? ', lastDigit);
         }
     }
     return doubles;
@@ -43,3 +42,26 @@ function doesItHaveDoubles(int) {
 
 console.log('trying double thing 111111, should be true: ', doesItHaveDoubles(111111));
 console.log('trying double thing 123789, should be false: ', doesItHaveDoubles(123789));
+console.log('trying double thing 123378, should be true: ', doesItHaveDoubles(123378));
+
+function doTheyDecrease(int) {
+    let lastDigit = 0;
+    let doesNotDecrease = true;
+    let arrayOfInt = Array.from(int.toString()).map(Number);
+
+
+    for (let i = 0; i < arrayOfInt.length; i++) {
+        if (arrayOfInt[i] < lastDigit) {
+            doesNotDecrease = false;
+            return doesNotDecrease;
+        } else {
+            lastDigit = arrayOfInt[i];
+        }
+    }
+    return doesNotDecrease;
+}
+
+console.log('checking if they decrease 111111, should be true: ', doTheyDecrease(111111));
+console.log('checking if they decrease 112111, should be false: ', doTheyDecrease(112111));
+console.log('checking if they decrease 123450, should be false: ', doTheyDecrease(123450));
+
