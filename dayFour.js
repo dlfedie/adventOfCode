@@ -24,10 +24,11 @@ function findPassword(lowRangeInt, highRangeInt) {
             potentialPasswords.push(i);
         }
     }
-    return potentialPasswords;
+    return potentialPasswords.length;
 }
 
-console.log('checking potential passwords between 111 and 123: ', findPassword(111, 123));
+// console.log('checking potential passwords between 111 and 123: ', findPassword(111, 123));
+console.log('checking potential passwords between 172851 and 675869: ', findPassword(172851, 675869));
 
 
 function doesItHaveDoubles(int) {
